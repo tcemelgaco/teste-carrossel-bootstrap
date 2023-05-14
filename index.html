@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+  <meta charset = "utf-8">
+  <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"> </script>
+  <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"> </script>
+  <script>
+    $.ajax({
+        url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vThSYtz3oL8PJShSi2dhd_dfS2plzRRRwMXyUF8SGPNdvs3zfB9R2-IHjAerA204O9EWaUVxSMkDt-2/pub?gid=2113664430&single=true&output=csv',
+        dataType: 'text',
+      }).done(successFunction);
+      function successFunction(data) {
+        var allRows = data.split(/\r?\n|\r/);
+        var div = "";
+   
+        for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
+          if (singleRow === 0) {
+            div += '<div class="item active">';
+          } else {
+            div += '<div class="item">';
+          }
+          var rowCells = allRows[singleRow].split(',');
+          for (var rowCell = 0; rowCell < rowCells.length; rowCell++) {
+           
+                div += '<div style=" width:300px; height: 300px; background-color: '+gerar_cor()+'">';
+                div +=  '<p style=" color: white; margin-left: 10px; font-size: 30px; ">'+rowCells[rowCell]+'</p>';
+                div += '</div>';
+            
+          }
+          if (singleRow === 0) {
+            div += '</div>';
+          } else {
+            div += '</div>';
+          }
+        }         
+        $('#carr').append(div);
+      }
+
+    function generateColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        
+        return color;
+        
+    }
+
+    function gerar_cor(opacidade = 1) {
+        let r = Math.random() * 50;
+        let g = Math.random() * 50;
+        let b = Math.random() * 250;
+        opacidade  = Math.random() * 30;
+
+   return `rgba(${r}, ${g}, ${b}, ${opacidade})`;
+}
+  </script>
+</head>
+<body>
+
+<div class="container" >
+  <div id="mCarousel" class="carousel slide" data-ride="carousel" style=" width:300px; height: 300px; ">
+      <!-- Wrapper-->
+    <div class="carousel-inner" id="carr">
+      <!--<div class="item active">
+        <div style=" width:300px; height: 300px; background-color: azure"> akjsbiagbdiasbd ad  da sduavsd </div>
+      </div>
+
+      <div class="item">
+        <div style=" width:300px; height: 300px; background-color: blue">  ad  da  </div>
+      </div>
+    
+      <div class="item">
+        <div style=" width:300px; height: 300px; background-color: aqua;" >  ad  da sduavsd </div>
+      </div> -->
+    </div> 
+    
+    <!-- Controles de direita e esquerda --> 
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Próximo</span>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>
